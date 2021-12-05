@@ -42,7 +42,7 @@ public class EchoServer {
             // 启动Netty服务器,ServerBootstrap用于引导和绑定服务器
             ServerBootstrap b = new ServerBootstrap();
             // 配置属性
-            b.group(group)
+            b.group(group) // 服务器端需要两个group（也可以是同一个实例），一个处理本地监听channel，一个处理每个客户端连接的channel
                 .channel(NioServerSocketChannel.class)
                 .localAddress(new InetSocketAddress(port))
                 .childHandler(new ChannelInitializer<SocketChannel>() {
