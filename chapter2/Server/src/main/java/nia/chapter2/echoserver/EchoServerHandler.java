@@ -13,7 +13,7 @@ import io.netty.util.CharsetUtil;
  *
  * @author <a href="mailto:norman.maurer@gmail.com">Norman Maurer</a>
  */
-@Sharable
+@Sharable // 可以被多个Channel安全共享
 public class EchoServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
@@ -26,6 +26,8 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx)
             throws Exception {
+        // 关闭Channel，并且将缓冲区清空（该消息已被处理）
+        // 因为在channelRead方法中的write操作是异步的，所以需要在这里释放消息中的内存引用
         ctx.writeAndFlush(Unpooled.EMPTY_BUFFER)
                 .addListener(ChannelFutureListener.CLOSE);
     }

@@ -36,24 +36,32 @@ public class EchoServer {
 
     public void start() throws Exception {
         final EchoServerHandler serverHandler = new EchoServerHandler();
+        // 创建一个EventLoopGroup用于事件处理，包括接受新连接以及读写数据
         EventLoopGroup group = new NioEventLoopGroup();
         try {
+            // 启动Netty服务器,ServerBootstrap用于引导和绑定服务器
             ServerBootstrap b = new ServerBootstrap();
+            // 配置属性
             b.group(group)
                 .channel(NioServerSocketChannel.class)
                 .localAddress(new InetSocketAddress(port))
                 .childHandler(new ChannelInitializer<SocketChannel>() {
                     @Override
                     public void initChannel(SocketChannel ch) throws Exception {
+                        // 每个channel都有一个pipeline，是一个链表结构，每个handle处理完后就会传递到下一个handle
                         ch.pipeline().addLast(serverHandler);
                     }
                 });
 
+            // 阻塞绑定
             ChannelFuture f = b.bind().sync();
             System.out.println(EchoServer.class.getName() +
                 " started and listening for connections on " + f.channel().localAddress());
+
+            // 阻塞等Channel关闭后退出
             f.channel().closeFuture().sync();
         } finally {
+            // 关闭EventLoop，释放所有资源
             group.shutdownGracefully().sync();
         }
     }
