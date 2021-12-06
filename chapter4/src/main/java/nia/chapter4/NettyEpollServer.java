@@ -22,6 +22,10 @@ import java.nio.charset.Charset;
  *
  * @author <a href="mailto:norman.maurer@gmail.com">Norman Maurer</a>
  */
+
+/**
+ * Netty的Epoll实现，注意⚠️：只能在Linux系统上使用，其它系统会报错
+ */
 public class NettyEpollServer {
     public void server(int port) throws Exception {
         final ByteBuf buf =

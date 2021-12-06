@@ -16,6 +16,10 @@ import java.util.Set;
  *
  * @author <a href="mailto:norman.maurer@gmail.com">Norman Maurer</a>
  */
+
+/**
+ * Java版的NIO基于Selector的实现
+ */
 public class PlainNioServer {
     public void serve(int port) throws IOException {
         ServerSocketChannel serverChannel = ServerSocketChannel.open();

@@ -16,6 +16,10 @@ import java.nio.charset.Charset;
  *
  * @author <a href="mailto:norman.maurer@gmail.com">Norman Maurer</a>
  */
+
+/**
+ * Netty的NIO实现
+ */
 public class NettyNioServer {
     public void server(int port) throws Exception {
         final ByteBuf buf =

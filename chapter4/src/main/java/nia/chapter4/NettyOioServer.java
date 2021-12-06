@@ -16,6 +16,10 @@ import java.nio.charset.Charset;
  *
  * @author <a href="mailto:norman.maurer@gmail.com">Norman Maurer</a>
  */
+
+/**
+ * Netty的BIO实现
+ */
 public class NettyOioServer {
     public void server(int port)
             throws Exception {

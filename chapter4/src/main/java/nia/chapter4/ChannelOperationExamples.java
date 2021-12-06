@@ -43,6 +43,9 @@ public class ChannelOperationExamples {
     /**
      * Listing 4.6 Using a Channel from many threads
      */
+    /**
+     * Netty的Channel是线程安全的，可以在多个线程中持有该对象进行操作
+     */
     public static void writingToChannelFromManyThreads() {
         final Channel channel = CHANNEL_FROM_SOMEWHERE; // Get the channel reference from somewhere
         final ByteBuf buf = Unpooled.copiedBuffer("your data",

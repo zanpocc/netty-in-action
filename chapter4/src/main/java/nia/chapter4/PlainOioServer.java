@@ -11,6 +11,10 @@ import java.nio.charset.Charset;
  *
  * @author <a href="mailto:norman.maurer@gmail.com">Norman Maurer</a>
  */
+
+/**
+ * Java的BIO实现
+ */
 public class PlainOioServer {
     public void serve(int port) throws IOException {
         final ServerSocket socket = new ServerSocket(port);
