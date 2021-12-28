@@ -25,6 +25,10 @@ public class ScheduleExamples {
     /**
      * Listing 7.2 Scheduling a task with a ScheduledExecutorService
      * */
+
+    /**
+     * 使用Java的调度线程池来实现60s后调度执行一个任务的方式
+     */
     public static void schedule() {
         ScheduledExecutorService executor =
                 Executors.newScheduledThreadPool(10);
@@ -43,6 +47,10 @@ public class ScheduleExamples {
     /**
      * Listing 7.3 Scheduling a task with EventLoop
      * */
+
+    /**
+     * 通过Netty的方式实现60s后调度执行一个任务的方式
+     */
     public static void scheduleViaEventLoop() {
         Channel ch = CHANNEL_FROM_SOMEWHERE; // get reference from somewhere
         ScheduledFuture<?> future = ch.eventLoop().schedule(
@@ -57,6 +65,10 @@ public class ScheduleExamples {
     /**
      * Listing 7.4 Scheduling a recurring task with EventLoop
      * */
+
+    /**
+     * 每60s调用一次
+     */
     public static void scheduleFixedViaEventLoop() {
         Channel ch = CHANNEL_FROM_SOMEWHERE; // get reference from somewhere
         ScheduledFuture<?> future = ch.eventLoop().scheduleAtFixedRate(

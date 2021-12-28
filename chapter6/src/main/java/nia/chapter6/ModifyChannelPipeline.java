@@ -17,6 +17,7 @@ public class ModifyChannelPipeline {
      * Listing 6.5 Modify the ChannelPipeline
      * */
     public static void modifyPipeline() {
+        // 移除和替换handle
         ChannelPipeline pipeline = CHANNEL_PIPELINE_FROM_SOMEWHERE; // get reference to pipeline;
         FirstHandler firstHandler = new FirstHandler();
         pipeline.addLast("handler1", firstHandler);
