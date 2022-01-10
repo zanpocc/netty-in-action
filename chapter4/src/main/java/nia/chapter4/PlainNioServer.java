@@ -64,7 +64,22 @@ public class PlainNioServer {
                                 break;
                             }
                         }
-                        client.close();
+                    }
+                    if (key.isReadable()) {
+                        SocketChannel client =
+                                (SocketChannel) key.channel();
+                        ByteBuffer byteBuffer = ByteBuffer.allocate(255);
+                        try {
+                            int length = client.read(byteBuffer);
+                            if(length > 0){
+                                byte[] data = new byte[length];
+                                byteBuffer.flip();
+                                byteBuffer.get(data, 0, data.length);
+                                System.out.print(new String(data));
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                 } catch (IOException ex) {
                     key.cancel();
@@ -76,6 +91,10 @@ public class PlainNioServer {
                 }
             }
         }
+    }
+
+    public static void main(String[] args) throws IOException {
+        new PlainNioServer().serve(80);
     }
 }
 
