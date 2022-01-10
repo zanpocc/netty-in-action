@@ -15,6 +15,11 @@ import java.util.List;
 
 public class SafeByteToMessageDecoder extends ByteToMessageDecoder {
     private static final int MAX_FRAME_SIZE = 1024;
+
+    /**
+     * 在解码中可能遇到Frame错误，和我们需求不一致，我们需要返回错误
+     * 我们可以抛出异常，这将会被exceptionCaught方法捕获，我们可以返回错误码或者关闭连接
+     */
     @Override
     public void decode(ChannelHandlerContext ctx, ByteBuf in,
         List<Object> out) throws Exception {
@@ -25,5 +30,10 @@ public class SafeByteToMessageDecoder extends ByteToMessageDecoder {
         }
         // do something
         // ...
+    }
+
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        super.exceptionCaught(ctx, cause);
     }
 }

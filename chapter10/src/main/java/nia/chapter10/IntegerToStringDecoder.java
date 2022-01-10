@@ -10,6 +10,10 @@ import java.util.List;
  *
  * @author <a href="mailto:norman.maurer@gmail.com">Norman Maurer</a>
  */
+
+/**
+ * 消息类型转换类：MessageToMessageDecoder，转换消息的格式
+ */
 public class IntegerToStringDecoder extends
     MessageToMessageDecoder<Integer> {
     @Override

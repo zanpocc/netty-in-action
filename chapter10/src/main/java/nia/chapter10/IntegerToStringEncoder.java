@@ -10,6 +10,12 @@ import java.util.List;
  *
  * @author <a href="mailto:norman.maurer@gmail.com">Norman Maurer</a>
  */
+
+/**
+ * 消息转消息的编码器
+ *
+ * 将每个出站的Integer转为一个List<String>
+ */
 public class IntegerToStringEncoder
     extends MessageToMessageEncoder<Integer> {
     @Override

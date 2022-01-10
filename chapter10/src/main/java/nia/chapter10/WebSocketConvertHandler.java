@@ -13,10 +13,20 @@ import java.util.List;
  *
  * @author <a href="mailto:norman.maurer@gmail.com">Norman Maurer</a>
  */
+
+/**
+ * MessageToMessageCodec基类同时完成出站和入站类型的消息转换
+ *
+ * 一个Handler同时实现encode和decode功能，牺牲可重用性
+ */
 @Sharable
 public class WebSocketConvertHandler extends
      MessageToMessageCodec<WebSocketFrame,
      WebSocketConvertHandler.MyWebSocketFrame> {
+
+    /**
+     * 转换我们自定义的消息帧为实际协议的消息帧
+     */
      @Override
      protected void encode(ChannelHandlerContext ctx,
          WebSocketConvertHandler.MyWebSocketFrame msg,
@@ -46,6 +56,9 @@ public class WebSocketConvertHandler extends
                      "Unsupported websocket msg " + msg);}
     }
 
+    /**
+     * 解码websocket消息帧为我们自定义的消息帧
+     */
     @Override
     protected void decode(ChannelHandlerContext ctx, WebSocketFrame msg,
         List<Object> out) throws Exception {
