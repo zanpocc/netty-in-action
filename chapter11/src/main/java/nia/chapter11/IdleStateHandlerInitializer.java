@@ -14,16 +14,23 @@ import java.util.concurrent.TimeUnit;
  *
  * @author <a href="mailto:norman.maurer@gmail.com">Norman Maurer</a>
  */
+
+/**
+ * Websocket心跳
+ */
 public class IdleStateHandlerInitializer extends ChannelInitializer<Channel>
     {
     @Override
     protected void initChannel(Channel ch) throws Exception {
         ChannelPipeline pipeline = ch.pipeline();
         pipeline.addLast(
-                new IdleStateHandler(0, 0, 60, TimeUnit.SECONDS));
+                new IdleStateHandler(0, 0, 60, TimeUnit.SECONDS)); // 心跳Handler，触发时发送IdleStateEvent事件
         pipeline.addLast(new HeartbeatHandler());
     }
 
+    /**
+     * 发送心跳消息
+     */
     public static final class HeartbeatHandler
         extends ChannelInboundHandlerAdapter {
         private static final ByteBuf HEARTBEAT_SEQUENCE =
@@ -32,10 +39,10 @@ public class IdleStateHandlerInitializer extends ChannelInitializer<Channel>
         @Override
         public void userEventTriggered(ChannelHandlerContext ctx,
             Object evt) throws Exception {
-            if (evt instanceof IdleStateEvent) {
+            if (evt instanceof IdleStateEvent) { // 发送心跳消息
                 ctx.writeAndFlush(HEARTBEAT_SEQUENCE.duplicate())
                      .addListener(
-                         ChannelFutureListener.CLOSE_ON_FAILURE);
+                         ChannelFutureListener.CLOSE_ON_FAILURE); // 60s没收到关闭连接
             } else {
                 super.userEventTriggered(ctx, evt);
             }

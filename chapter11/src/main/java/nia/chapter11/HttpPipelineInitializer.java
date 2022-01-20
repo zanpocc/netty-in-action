@@ -14,6 +14,9 @@ import io.netty.handler.codec.http.HttpResponseEncoder;
  * @author <a href="mailto:norman.maurer@gmail.com">Norman Maurer</a>
  */
 
+/**
+ * 添加HTTP的支持
+ */
 public class HttpPipelineInitializer extends ChannelInitializer<Channel> {
     private final boolean client;
 
@@ -21,6 +24,9 @@ public class HttpPipelineInitializer extends ChannelInitializer<Channel> {
         this.client = client;
     }
 
+    /**
+     * 添加请求和响应的编码和解码器，这种只是单个HTTP请求和响应的处理，一个请求可能会有多部分到达
+     */
     @Override
     protected void initChannel(Channel ch) throws Exception {
         ChannelPipeline pipeline = ch.pipeline();

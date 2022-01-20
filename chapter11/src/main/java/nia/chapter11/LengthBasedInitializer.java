@@ -14,7 +14,7 @@ public class LengthBasedInitializer extends ChannelInitializer<Channel> {
     protected void initChannel(Channel ch) throws Exception {
         ChannelPipeline pipeline = ch.pipeline();
         pipeline.addLast(
-                new LengthFieldBasedFrameDecoder(64 * 1024, 0, 8));
+                new LengthFieldBasedFrameDecoder(64 * 1024, 0, 8)); // 头部字段存在帧长度
         pipeline.addLast(new FrameHandler());
     }
 

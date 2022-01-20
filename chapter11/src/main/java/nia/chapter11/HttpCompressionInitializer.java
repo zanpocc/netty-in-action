@@ -13,6 +13,10 @@ import io.netty.handler.codec.http.HttpServerCodec;
  *
  * @author <a href="mailto:norman.maurer@gmail.com">Norman Maurer</a>
  */
+
+/**
+ * HTTP压缩功能添加
+ */
 public class HttpCompressionInitializer extends ChannelInitializer<Channel> {
     private final boolean isClient;
 
@@ -22,6 +26,7 @@ public class HttpCompressionInitializer extends ChannelInitializer<Channel> {
 
     @Override
     protected void initChannel(Channel ch) throws Exception {
+        // 添加压缩和解压缩Handler
         ChannelPipeline pipeline = ch.pipeline();
         if (isClient) {
             pipeline.addLast("codec", new HttpClientCodec());

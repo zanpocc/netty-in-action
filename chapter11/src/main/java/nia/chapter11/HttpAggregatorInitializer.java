@@ -12,6 +12,10 @@ import io.netty.handler.codec.http.HttpServerCodec;
  *
  * @author <a href="mailto:norman.maurer@gmail.com">Norman Maurer</a>
  */
+
+/**
+ * 聚合HTTP消息
+ */
 public class HttpAggregatorInitializer extends ChannelInitializer<Channel> {
     private final boolean isClient;
 
@@ -28,6 +32,6 @@ public class HttpAggregatorInitializer extends ChannelInitializer<Channel> {
             pipeline.addLast("codec", new HttpServerCodec());
         }
         pipeline.addLast("aggregator",
-                new HttpObjectAggregator(512 * 1024));
+                new HttpObjectAggregator(512 * 1024)); // 最大消息大小512
     }
 }

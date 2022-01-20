@@ -16,16 +16,20 @@ import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
  *
  * @author <a href="mailto:norman.maurer@gmail.com">Norman Maurer</a>
  */
+
+/**
+ * WebSocket支持
+ */
 public class WebSocketServerInitializer extends ChannelInitializer<Channel> {
     @Override
     protected void initChannel(Channel ch) throws Exception {
         ch.pipeline().addLast(
             new HttpServerCodec(),
-            new HttpObjectAggregator(65536),
-            new WebSocketServerProtocolHandler("/websocket"),
-            new TextFrameHandler(),
-            new BinaryFrameHandler(),
-            new ContinuationFrameHandler());
+            new HttpObjectAggregator(65536), // HTTP握手聚合
+            new WebSocketServerProtocolHandler("/websocket"), // 端点为/websocket则处理该升级握手
+            new TextFrameHandler(), // 文本帧
+            new BinaryFrameHandler(), // 二进制帧
+            new ContinuationFrameHandler()); // 数据帧，属于文本或者二进制的数据
     }
 
     public static final class TextFrameHandler extends

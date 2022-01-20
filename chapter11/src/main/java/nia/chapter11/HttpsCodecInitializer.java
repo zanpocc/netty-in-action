@@ -15,6 +15,10 @@ import javax.net.ssl.SSLEngine;
  *
  * @author <a href="mailto:norman.maurer@gmail.com">Norman Maurer</a>
  */
+
+/**
+ * HTTPS的支持，依赖于JDK的SSLEngine实现
+ */
 public class HttpsCodecInitializer extends ChannelInitializer<Channel> {
     private final SslContext context;
     private final boolean isClient;
